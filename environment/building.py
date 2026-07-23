@@ -1,6 +1,7 @@
 
 from environment.cell import Cell, CellType
 from utils.constants import GRID_WIDTH, GRID_HEIGHT
+import random
 
 
 class Building:
@@ -61,3 +62,11 @@ class Building:
 
     def reset(self):
         self.cells = self._init_grid()
+        
+    def get_random_passable_cell(self):
+            while True:
+                x = random.randint(1, self.width - 2)
+                y = random.randint(1, self.height - 2)
+                cell = self.cells[y][x]
+                if cell.type == CellType.EMPTY:
+                    return x, y

@@ -78,7 +78,7 @@ class PersonAgent:
         elif cell and cell.type == CellType.FIRE:
             self.state = PersonState.DEAD
 
-    def get_reward(self, old_x, old_y, building, exits):
+    def get_reward(self, old_x, old_y, building, exits, action=None):
         cell = building.get_cell(self.x, self.y)
         if cell and cell.type == CellType.EXIT:
             return 100
@@ -87,14 +87,23 @@ class PersonAgent:
         else:
             old_dist = self._calculate_min_distance_to_exit(old_x, old_y, exits)
             new_dist = self._calculate_min_distance_to_exit(self.x, self.y, exits)
-            reward = -1
+            danger = self._calculate_danger_level(self.x, self.y, building)
+
+            reward = -1 - (danger * 0.5)  # pénalité proportionnelle au danger, pas juste binaire
             if new_dist < old_dist:
                 reward += 10
             elif new_dist > old_dist:
                 reward -= 5
+
+            if action == 4 and old_x == self.x and old_y == self.y:
+                reward -= 2  # décourage d'attendre sans nécessité
+
             return reward
 
-    def reset(self):
+    def reset(self, x=None, y=None):
+        if x is not None and y is not None:
+            self.initial_x = x
+            self.initial_y = y
         self.x = self.initial_x
         self.y = self.initial_y
         self.state = PersonState.ALIVE
