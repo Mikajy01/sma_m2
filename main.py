@@ -1,7 +1,11 @@
 
-import pygame
+
 import sys
 
+# Block numpy/matplotlib imports
+sys.modules['numpy'] = None
+sys.modules['matplotlib'] = None
+import pygame
 from simulation.simulator import Simulator
 from environment.cell import CellType
 from agents.person_agent import PersonState

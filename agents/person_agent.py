@@ -1,9 +1,5 @@
 
-import sys
-import os
 from enum import Enum
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from environment.cell import CellType
 from ai.q_learning import QLearning

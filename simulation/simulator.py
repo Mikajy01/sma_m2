@@ -1,9 +1,4 @@
 
-import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from environment.building import Building
 from agents.person_agent import PersonAgent, PersonState
 from agents.fire_agent import FireAgent

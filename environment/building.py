@@ -1,9 +1,4 @@
 
-import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from environment.cell import Cell, CellType
 from utils.constants import GRID_WIDTH, GRID_HEIGHT
 
